@@ -6,7 +6,8 @@ extends CanvasLayer
 var displayed_health: int = 0
 
 # A variable to store the tween object.
-# If the player gets hurt again, we interrupt the previous tween.
+# A "tween" basically says to "smoothly change between two values over a set time"
+# If the player gets hurt again, we interrupt the previous tween using this reference.
 var health_tween: Tween
 
 func _ready() -> void:
@@ -22,8 +23,9 @@ func refresh_health():
 	health_tween = create_tween()
 	
 	# Tween the displayed health value using the `set_label(value)` function.
-	# This will smoothly interpolate between the values until it reaches the target or we interrupt it.
-	health_tween.tween_method(set_label, displayed_health, player.health, 0.25)
+	# This will smoothly interpolate between the values over 0.25 seconds until it reaches the target or we interrupt it.
+	var tween_seconds: float = 0.25
+	health_tween.tween_method(set_label, displayed_health, player.health, tween_seconds)
 
 func set_label(value: int):
 	# Set the stored value and update the label text.
