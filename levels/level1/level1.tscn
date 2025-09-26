@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cir2l7rd1hldy"]
+
+[ext_resource type="Texture2D" uid="uid://cikd0g87a5gov" path="res://assets/1x1Pixel.png" id="1_eq150"]
+[ext_resource type="PackedScene" uid="uid://onvgmdcfvyf" path="res://characters/player/player.tscn" id="2_c6lro"]
+[ext_resource type="PackedScene" uid="uid://d0hl7d0uxk8l8" path="res://props/spike.tscn" id="3_ps0pm"]
+[ext_resource type="PackedScene" uid="uid://dhivq3mx3kbed" path="res://characters/player/player_health_overlay.tscn" id="4_aatsp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lro"]
+size = Vector2(1920, 500)
+
+[node name="Level1" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Ground" type="StaticBody2D" parent="." groups=["Ground"]]
+position = Vector2(0, 580)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(960, 250)
+shape = SubResource("RectangleShape2D_c6lro")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+modulate = Color(0, 0.7093466, 0.37331787, 1)
+position = Vector2(960, 250.00006)
+scale = Vector2(1920, 500)
+texture = ExtResource("1_eq150")
+
+[node name="Player" parent="." instance=ExtResource("2_c6lro")]
+position = Vector2(591, 518)
+
+[node name="Spike" parent="." instance=ExtResource("3_ps0pm")]
+position = Vector2(1103.9999, 532.99994)
+
+[node name="PlayerHealthOverlay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_aatsp")]
+player = NodePath("../Player")
